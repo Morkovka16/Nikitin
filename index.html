@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Портфолио ученика</title>
+  <style>
+    /* === СБРОС И ОБЩИЕ СТИЛИ === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --neon-pink: #ff5ebc;
+      --neon-blue: #5ecfff;
+      --neon-purple: #b967ff;
+      --neon-cyan: #4deeea;
+      --bg-dark: #0f0c29;
+      --bg-gradient: linear-gradient(135deg, #1a1233, #2d1b5e);
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --text-light: #f0f4ff;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* === СЕКЦИИ И КОНТЕЙНЕРЫ === */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    section > .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 94, 188, 0.2);
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      margin: 24px 0 32px;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: var(--neon-cyan);
+    }
+
+    p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 16px auto;
+      text-align: center;
+    }
+
+    /* === HEADER === */
+    header {
+      background: rgba(15, 12, 41, 0.7);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .logo p {
+      font-size: 0.95rem;
+      margin: 4px 0 0;
+      color: var(--neon-blue);
+      opacity: 0.9;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 6px 12px;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--neon-cyan);
+      background: rgba(77, 238, 234, 0.1);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--neon-pink);
+      border-radius: 2px;
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 60%;
+    }
+
+    /* === КАРТОЧКИ === */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(12px);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* === СЕКЦИЯ "ОБО МНЕ" === */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 24px;
+    }
+
+    .avatar-card {
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--neon-blue);
+      box-shadow: 0 0 20px rgba(255, 94, 188, 0.4);
+      transition: var(--transition);
+    }
+
+    .avatar:hover {
+      transform: scale(1.08) rotate(5deg);
+      box-shadow: 0 0 30px rgba(255, 94, 188, 0.7);
+    }
+
+    /* === КАРУСЕЛИ === */
+    .carousel {
+      width: 100%;
+      max-width: 900px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      width: 280px;
+      height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+
+    .carousel-item:hover {
+      transform: scale(1.05);
+      border-color: var(--neon-cyan);
+    }
+
+    .carousel-item img,
+    .carousel-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .carousel-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .carousel-btn:hover {
+      background: var(--neon-pink);
+      transform: scale(1.1);
+    }
+
+    /* === МОДАЛЬНЫЕ ОКНА === */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: auto;
+      position: relative;
+      box-shadow: 0 0 40px rgba(94, 207, 255, 0.4);
+      transform: scale(0.9);
+      transition: transform 0.4s ease;
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--neon-pink);
+      transform: rotate(90deg);
+    }
+
+    .modal-img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-video {
+      width: 100%;
+      max-width: 800px;
+      max-height: 70vh;
+      border-radius: 16px;
+      background: black;
+    }
+
+    /* === ПРЕЗЕНТАЦИЯ === */
+    .presentation-viewer {
+      width: 100%;
+      height: 70vh;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--card-border);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: rgba(5, 3, 20, 0.8);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 1rem;
+      color: rgba(240, 244, 255, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* === АДАПТИВНОСТЬ === */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .avatar {
+        width: 180px;
+        height: 180px;
+      }
+
+      h1 { font-size: 2.6rem; }
+      h2 { font-size: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .header-content {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .carousel {
+        padding: 12px 0;
+      }
+
+      .carousel-item {
+        width: 220px;
+        height: 220px;
+      }
+
+      section { padding: 50px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h1>Тимофей Н.</h1>
+          <p>Юный создатель цифрового контента</p>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#about">Обо мне</a></li>
+            <li><a href="#images">Картинки</a></li>
+            <li><a href="#videos">Видео</a></li>
+            <li><a href="#presentation">Презентации</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- СЕКЦИЯ: ОБО МНЕ -->
+    <section id="about">
+      <div class="container">
+        <h2>Обо мне</h2>
+        <div class="about-grid">
+          <div class="card avatar-card">
+            <!-- AVATAR_PLACEHOLDER: вставьте путь к локальному файлу аватара, например: images/avatar.jpg -->
+            <img src="images/avatar.png" alt="Аватар ученика" class="avatar" id="avatarImg">
+          </div>
+          <div class="card">
+            <h3>Привет! Я — Тимофей</h3>
+            <!-- ABOUT_TEXT_PLACEHOLDER: вставьте текст об ученике -->
+            <p>Немного обо мне: мне 9 лет. Я умею создавать картинки, видео, презентации и сайты. Верю, что технологии — это не только инструмент, но и способ выразить себя.</p>
+            <p>Люблю рисовать, собирать конструкторы и играть в компьютерные игры.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ: КАРТИНКИ -->
+    <section id="images">
+      <div class="container">
+        <h2>Мои картинки</h2>
+        <p>Я создаю картинки в ИИ и люблю придумывать новые идеи.</p>
+
+        <div class="carousel" id="imagesCarousel">
+          <!-- IMAGES_CAROUSEL_ITEMS: все картинки лежат в папке images/works/ -->
+          <div class="carousel-item" data-src="images/works/work1.jpg">
+            <img src="images/works/work1.png" alt="Работа ученика 1">
+          </div>
+          <div class="carousel-item" data-src="images/works/work2.jpg">
+            <img src="images/works/work2.png" alt="Работа ученика 2">
+          </div>
+          <div class="carousel-item" data-src="images/works/work3.jpg">
+            <img src="images/works/work3.png" alt="Работа ученика 3">
+          </div>
+          <div class="carousel-item" data-src="images/works/work3.jpg">
+            <img src="images/works/work4.png" alt="Работа ученика 4">
+          </div>
+          <div class="carousel-item" data-src="images/works/work3.jpg">
+            <img src="images/works/work5.png" alt="Работа ученика 5">
+          </div>
+          <div class="carousel-item" data-src="images/works/work3.jpg">
+            <img src="images/works/work6.png" alt="Работа ученика 6">
+          </div>
+        </div>
+
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="prevImgBtn">←</button>
+          <button class="carousel-btn" id="nextImgBtn">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ: ВИДЕО -->
+    <section id="videos">
+      <div class="container">
+        <h2>Мои видео</h2>
+        <p>Я создаю короткие ролики c помощью ии</p>
+
+        <div class="carousel" id="videosCarousel">
+          <!-- VIDEO_CAROUSEL_ITEMS: все видео лежат в папке videos/ -->
+          <!-- Превью берутся из videos/previews/preview1.png и т.д. -->
+          <div class="carousel-item" data-video="videos/video1.mp4">
+            <img src="videos/previews/preview1.png" alt="Превью видео 1">
+          </div>
+          <div class="carousel-item" data-video="videos/video2.mp4">
+            <img src="videos/previews/preview2.png" alt="Превью видео 2">
+          </div>
+          <div class="carousel-item" data-video="videos/video3.mp4">
+            <img src="videos/previews/preview3.png" alt="Превью видео 3">
+          </div>
+          <div class="carousel-item" data-video="videos/video4.mp4">
+            <img src="videos/previews/preview4.png" alt="Превью видео 4">
+          </div>
+          <div class="carousel-item" data-video="videos/video5.mp4">
+            <img src="videos/previews/preview5.png" alt="Превью видео 5">
+          </div>
+          <div class="carousel-item" data-video="videos/video6.mp4">
+            <img src="videos/previews/preview6.png" alt="Превью видео 6">
+          </div>
+        </div>
+
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="prevVidBtn">←</button>
+          <button class="carousel-btn" id="nextVidBtn">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦИЯ: ПРЕЗЕНТАЦИЯ -->
+    <section id="presentation">
+      <div class="container">
+        <h2>Мои презентации</h2>
+        <p>Эти презентации я сделал с помощю ии: </p>
+
+        <div class="card" style="width: 100%; max-width: 900px; padding: 20px; margin-top: 32px;">
+         <h3>Презентация №1: «18 минут и дракон мёртв ( это про компьютерную игру )»</h3>
+          <embed src="presentations/project1.pdf" type="application/pdf" class="presentation-viewer
+      </div>
+    </section>
+<div class="card" style="width: 100%; max-width: 900px; padding: 20px; margin-top: 32px;">
+  <h3>Презентация №2: «круговорот воды в природе»</h3>
+  <embed src="presentations/project2.pdf" type="application/pdf" class="presentation-viewer">
+</div>
+</section>
+  <!-- МОДАЛЬНЫЕ ОКНА -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeImageModal">&times;</button>
+      <img src="" alt="Увеличенное изображение" class="modal-img" id="modalImage">
+    </div>
+  </div>
+
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeVideoModal">&times;</button>
+      <!-- VIDEO_MODAL_SRC: сюда JS подставляет путь к локальному mp4 -->
+      <video id="videoPlayer" controls class="modal-video"></video>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Тимофей Н..<br>Этот сайт-портфолио создан мной для демонстрации работ.</p>
+    </div>
+  </footer>
+
+  <script>
+    // === СТРУКТУРА ПРОЕКТА (для справки) ===
+    // /project
+    //   index.html
+    //   /images
+    //     avatar.jpg
+    //     /works
+    //        work1.jpg, work2.jpg, ...
+    //   /videos
+    //     video1.mp4, video2.mp4, ...
+    //     /previews
+    //        preview1.jpg, preview2.jpg, ...
+    //   /presentations
+    //     project.pdf
+
+    // === КАРУСЕЛИ И НАВИГАЦИЯ ===
+    function initCarousel(carouselId, prevBtnId, nextBtnId) {
+      const carousel = document.getElementById(carouselId);
+      const prevBtn = document.getElementById(prevBtnId);
+      const nextBtn = document.getElementById(nextBtnId);
+
+      if (!carousel || !prevBtn || !nextBtn) return;
+
+      const scrollAmount = 300;
+
+      prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // Инициализация каруселей
+    document.addEventListener('DOMContentLoaded', () => {
+      initCarousel('imagesCarousel', 'prevImgBtn', 'nextImgBtn');
+      initCarousel('videosCarousel', 'prevVidBtn', 'nextVidBtn');
+    });
+
+    // === МОДАЛЬНЫЕ ОКНА ===
+    const imageModal = document.getElementById('imageModal');
+    const videoModal = document.getElementById('videoModal');
+    const modalImage = document.getElementById('modalImage');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const closeImageBtn = document.getElementById('closeImageModal');
+    const closeVideoBtn = document.getElementById('closeVideoModal');
+
+    // Открытие модалки с изображением
+    document.querySelectorAll('#imagesCarousel .carousel-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.getAttribute('data-src');
+        modalImage.src = src;
+        imageModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Открытие модалки с видео
+    document.querySelectorAll('#videosCarousel .carousel-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const videoSrc = item.getAttribute('data-video');
+        videoPlayer.src = videoSrc;
+        videoModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Запуск видео при открытии (опционально)
+        // videoPlayer.play();
+      });
+    });
+
+    // Закрытие модалок
+    function closeModal(modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      // Остановка видео при закрытии
+      if (modal === videoModal) {
+        videoPlayer.pause();
+        videoPlayer.src = '';
+      }
+    }
+
+    closeImageBtn.addEventListener('click', () => closeModal(imageModal));
+    closeVideoBtn.addEventListener('click', () => closeModal(videoModal));
+
+    // Закрытие по клику вне контента
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) closeModal(imageModal);
+    });
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeModal(videoModal);
+    });
+
+    // Закрытие по Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (imageModal.classList.contains('active')) closeModal(imageModal);
+        if (videoModal.classList.contains('active')) closeModal(videoModal);
+      }
+    });
+
+    // === ПЛАВНАЯ ПРОКРУТКА ДЛЯ ЯКОРЕЙ ===
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
